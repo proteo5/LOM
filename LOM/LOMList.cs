@@ -40,12 +40,30 @@ namespace LOM
 
         public bool Contains(T item)
         {
-           return ListManager.Contains(this._objectID, item);
+            return ListManager.Contains(this._objectID, item);
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotImplementedException("At CopyTo");
+            var arrayValues = ListManager.CopyTo(this._objectID);
+            var index = -1;
+            for (int i = arrayIndex; i < array.Length; i++)
+            {
+                index++;
+                if (i >= array.Length || index >= arrayValues.Length) break;
+                array[i] = (T)arrayValues[index];
+            }
+        }
+
+        public void CopyTo(T[] array)
+        {
+
+            var arrayValues = ListManager.CopyTo(this._objectID);
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i >= array.Length || i >= arrayValues.Length) break;
+                array[i] = (T)arrayValues[i];
+            }
         }
 
         public LOMList<T> Clone()
@@ -75,14 +93,14 @@ namespace LOM
             ListManager.RemoveAt(this._objectID, index);
         }
 
-        //implements IEnumerator
+        //Implements IEnumerator
         public IEnumerator<T> GetEnumerator()
         {
             return (IEnumerator<T>)this;
         }
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException("At IEnumerator");
+            return (IEnumerator<T>)this;
         }
         private int position = -1;
         public T Current

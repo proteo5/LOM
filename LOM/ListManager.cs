@@ -89,6 +89,21 @@ namespace LOM
             internallist.Clear();
         }
 
+        internal static object[] CopyTo(Guid listID)
+        {
+            var internallist = lists[listID];
+            int howMany = internallist.Count ;
+            object[] array = new object[howMany];
+            Guid[] childArray = new Guid[howMany];
+            internallist.CopyTo(childArray);
+
+            for (int i = 0; i < childArray.Length; i++)
+            {
+                array[i] = vault[childArray[i]];
+            }
+            return array;
+        }
+
         internal static int Count(Guid objectID) => lists[objectID].Count;
 
         internal static Guid Clone(Guid objectID)

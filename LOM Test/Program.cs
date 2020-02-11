@@ -39,6 +39,17 @@ namespace Lomvm_Test
             Console.WriteLine("List 1 Index of 0: {0}", list.IndexOf(0));
             Console.WriteLine("List 2 index of 100: {0}", list.IndexOf(100));
 
+            Console.WriteLine("");
+            Console.WriteLine("Print Sublist");
+            int[] sublist = new int[list.Count+10];
+            list.CopyTo(sublist);
+            list.CopyTo(sublist, 11);
+
+            for (int i = 0; i < sublist.Length; i++)
+            {
+                Console.WriteLine("{0}", sublist[i]);
+            }
+
 
             //list.Safe<int>((listIn) => {
             //    listIn.Remove(0);
