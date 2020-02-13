@@ -92,7 +92,7 @@ namespace LOM
         internal static object[] CopyTo(Guid listID)
         {
             var internallist = lists[listID];
-            int howMany = internallist.Count ;
+            int howMany = internallist.Count;
             object[] array = new object[howMany];
             Guid[] childArray = new Guid[howMany];
             internallist.CopyTo(childArray);
@@ -118,6 +118,38 @@ namespace LOM
 
             lists[newObjectID] = newList;
             return newObjectID;
+        }
+
+        internal static void Dispose(Guid listID)
+        {
+           // var internallist = lists[listID];
+           // internallist.Clear();
+        }
+
+        internal static void Destroy(Guid objectID)
+        {
+            lock (vault) {
+                lock (lists) {
+                    List<Guid> ToBeRemoved = new List<Guid>();
+                    lists.Remove(objectID);
+                    foreach (var item in vault)
+                    {
+                        bool itemFounded = false;
+                        foreach (var list in lists)
+                        {
+                            if (list.Value.Contains(item.Key)) {
+                                itemFounded = true;
+                                break;
+                            }
+                        }
+                        if (!itemFounded) ToBeRemoved.Add(item.Key);
+                    }
+                    foreach (var item in ToBeRemoved)
+                    {
+                        vault.Remove(item);
+                    }
+                }
+            }
         }
 
     }

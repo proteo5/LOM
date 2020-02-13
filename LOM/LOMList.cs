@@ -13,6 +13,11 @@ namespace LOM
             this._objectID = Guid.NewGuid();
         }
 
+        ~LOMList()
+        {
+            ListManager.Destroy(this._objectID);
+        }
+
         internal LOMList(Guid objectID)
         {
             this._objectID = objectID;
@@ -126,7 +131,12 @@ namespace LOM
 
         public void Dispose()
         {
+            ListManager.Dispose(this._objectID);
+        }
 
+        public void Destroy()
+        {
+            ListManager.Destroy(this._objectID);
         }
     }
 

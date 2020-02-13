@@ -50,6 +50,11 @@ namespace Lomvm_Test
                 Console.WriteLine("{0}", sublist[i]);
             }
 
+            Console.WriteLine();
+            Console.WriteLine("List one destroyed");
+            list.Destroy();
+            print($"Print List 2", list2);
+
 
             //list.Safe<int>((listIn) => {
             //    listIn.Remove(0);
