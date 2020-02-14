@@ -8,6 +8,22 @@ namespace Lomvm_Test
     {
         static void Main(string[] args)
         {
+            //TestList();
+            TestString();
+
+        }
+
+        static void print(string message, LOMList<int> list ) {
+            Console.WriteLine(message);
+            foreach (var item in list)
+            {
+                Console.WriteLine($"Number: {item}");
+            }
+            Console.WriteLine("");
+        }
+
+        static void TestList()
+        {
             LOMList<int> list = new LOMList<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             print($"Print List 1", list);
 
@@ -33,7 +49,7 @@ namespace Lomvm_Test
             print($"Print List 1", list);
             print($"Print List 2", list2);
 
-            Console.WriteLine("List 1 Contains 0: {0}",list.Contains(0) ? "Yes":"No");
+            Console.WriteLine("List 1 Contains 0: {0}", list.Contains(0) ? "Yes" : "No");
             Console.WriteLine("List 2 Contains 100: {0}", list.Contains(100) ? "Yes" : "No");
 
             Console.WriteLine("List 1 Index of 0: {0}", list.IndexOf(0));
@@ -41,7 +57,7 @@ namespace Lomvm_Test
 
             Console.WriteLine("");
             Console.WriteLine("Print Sublist");
-            int[] sublist = new int[list.Count+10];
+            int[] sublist = new int[list.Count + 10];
             list.CopyTo(sublist);
             list.CopyTo(sublist, 11);
 
@@ -66,18 +82,21 @@ namespace Lomvm_Test
             //});
 
             //print($"Print List Out", list);
-
         }
 
-        static void print(string message, LOMList<int> list ) {
-            Console.WriteLine(message);
-            foreach (var item in list)
-            {
-                Console.WriteLine($"Number: {item}");
-            }
-            Console.WriteLine("");
+        static void TestString()
+        {
+            string testString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed mauris ut ipsum porttitor dapibus vitae eget urna. Donec nisl quam, ultrices id euismod et, congue et lacus. Mauris interdum faucibus libero ac dignissim. Curabitur eget blandit leo. Pellentesque dictum nec justo ac scelerisque. Sed eu augue feugiat, sodales turpis vel, luctus metus. Nam tempus vitae nunc nec tempor. Ut faucibus urna quis tempor ullamcorper. Etiam ac faucibus ipsum."
+                                + "Mauris ornare ante non massa mollis, nec venenatis purus imperdiet.Donec consectetur purus ut nibh fermentum semper.Suspendisse mattis est nulla, nec ornare dui pulvinar eu. Pellentesque dolor ligula, lacinia ut.";
+            Console.WriteLine(testString);
+            
+            var lomString = new LOMString(testString);
+            Console.WriteLine();
+            Console.WriteLine();
+            string testString2 = lomString.ToString();
+            Console.WriteLine(testString2);
         }
 
-       
+
     }
 }
