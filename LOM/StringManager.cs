@@ -21,7 +21,16 @@ namespace LOM
         internal static void AddNewString(Guid stringID, string newString, string separator)
         {
             strings.Add(stringID, new List<uint>());
-            string[] words = newString.Split(separator);
+            string[] words;
+            if (string.IsNullOrEmpty(separator))
+            {
+                words = newString.Split(new string[] { "\r\n","\r", "\n", Environment.NewLine }, StringSplitOptions.None);
+            }
+            else
+            {
+                words = newString.Split(separator);
+            }
+
             for (int i = 0; i < words.Length; i++)
             {
                 var exist = vault.Where(f => f.Value == words[i]);
@@ -39,21 +48,41 @@ namespace LOM
             }
         }
 
+        internal static string GetAtIndex(Guid stringID, int index)
+        {
+            var internalString = strings[stringID];
+            var valueIndex = internalString[index];
+            var value = vault[valueIndex];
+            return value;
+        }
+
+        internal static void SetAtIndex(Guid stringID, int index, string value)
+        {
+            var internalString = strings[stringID];
+            internalString.RemoveAt(index);
+            var newVaultIndex = vaultIndex;
+            vaultIndex++;
+            internalString.Insert(index, newVaultIndex);
+            vault[newVaultIndex] = value;
+        }
+
         internal static string ToString(Guid stringID, string separator)
         {
             var stringToReturn = new StringBuilder();
             var theString = strings[stringID];
+            if (string.IsNullOrEmpty(separator))
+                separator = Environment.NewLine;
 
             foreach (var item in theString)
             {
-                stringToReturn.Append(vault[item] + " ");
-                
+                stringToReturn.Append(vault[item]);
+                stringToReturn.Append(separator);
             }
 
             return stringToReturn.ToString().TrimEnd();
         }
 
-        internal static Guid Clone(Guid stringID, string separator)
+        internal static Guid Clone(Guid stringID)
         {
             Guid newStringID = Guid.NewGuid();
             List<uint> newString = new List<uint>();
@@ -64,7 +93,7 @@ namespace LOM
             }
 
             strings[newStringID] = newString;
-         
+
             return newStringID;
         }
     }

@@ -87,7 +87,6 @@ namespace LOM
             ListManager.Insert(this._objectID, index, item);
         }
 
-
         public bool Remove(T item)
         {
             return ListManager.Remove(this._objectID, item);

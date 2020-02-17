@@ -9,17 +9,23 @@ namespace LOM
         private readonly Guid _stringID;
         private readonly string _separator;
 
-        internal LOMString(Guid stringID,string separator)
+        internal LOMString(Guid stringID, string separator)
         {
             this._separator = separator;
             this._stringID = stringID;
         }
 
-        public LOMString(string value, string separator = " ")
+        public LOMString(string value, string separator = "")
         {
             this._stringID = Guid.NewGuid();
             this._separator = separator;
             StringManager.AddNewString(this._stringID, value, separator);
+        }
+
+        public string this[int index]
+        {
+            get => StringManager.GetAtIndex(this._stringID, index);
+            set => StringManager.SetAtIndex(this._stringID, index, value);
         }
 
         public override string ToString()
@@ -29,9 +35,9 @@ namespace LOM
 
         public LOMString Clone()
         {
-            var stringID = StringManager.Clone(_stringID, _separator);
+            var newStringID = StringManager.Clone(this._stringID);
 
-            return new LOMString(stringID,_separator);
+            return new LOMString(newStringID, _separator);
         }
     }
 }

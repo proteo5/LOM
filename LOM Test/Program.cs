@@ -13,7 +13,8 @@ namespace Lomvm_Test
 
         }
 
-        static void print(string message, LOMList<int> list ) {
+        static void print(string message, LOMList<int> list)
+        {
             Console.WriteLine(message);
             foreach (var item in list)
             {
@@ -86,20 +87,36 @@ namespace Lomvm_Test
 
         static void TestString()
         {
-            string testString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed mauris ut ipsum porttitor dapibus vitae eget urna. Donec nisl quam, ultrices id euismod et, congue et lacus. Mauris interdum faucibus libero ac dignissim. Curabitur eget blandit leo. Pellentesque dictum nec justo ac scelerisque. Sed eu augue feugiat, sodales turpis vel, luctus metus. Nam tempus vitae nunc nec tempor. Ut faucibus urna quis tempor ullamcorper. Etiam ac faucibus ipsum."
-                                + "Mauris ornare ante non massa mollis, nec venenatis purus imperdiet.Donec consectetur purus ut nibh fermentum semper.Suspendisse mattis est nulla, nec ornare dui pulvinar eu. Pellentesque dolor ligula, lacinia ut.";
+            string testString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed mauris ut ipsum porttitor dapibus vitae eget urna. Donec nisl quam, ultrices id euismod et, congue et lacus. Mauris interdum faucibus libero ac dignissim. Curabitur eget blandit leo. " + Environment.NewLine
+                              + "Pellentesque dictum nec justo ac scelerisque. Sed eu augue feugiat, sodales turpis vel, luctus metus. Nam tempus vitae nunc nec tempor. Ut faucibus urna quis tempor ullamcorper. Etiam ac faucibus ipsum." + Environment.NewLine
+                              + "Mauris ornare ante non massa mollis, nec venenatis purus imperdiet.Donec consectetur purus ut nibh fermentum semper.Suspendisse mattis est nulla, nec ornare dui pulvinar eu. Pellentesque dolor ligula, lacinia ut.";
+            Console.WriteLine("Original String");
             Console.WriteLine(testString);
-            
+
             var lomString = new LOMString(testString);
             Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine("String from LomObject");
             string testString2 = lomString.ToString();
             Console.WriteLine(testString2);
 
             var lomStringClone = lomString.Clone();
             Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine("String from Clone");
             string testStringClone = lomStringClone.ToString();
+            Console.WriteLine(testStringClone);
+           
+            //modify clone LOMString
+            string paragraph = lomStringClone[1];
+            lomStringClone[1] = paragraph.Replace("nec", "necModified");
+
+            Console.WriteLine();
+            Console.WriteLine("Original LOMString after modified clone");
+            testString2 = lomString.ToString();
+            Console.WriteLine(testString2);
+            
+            Console.WriteLine();
+            Console.WriteLine("Cloned LOMString Modified after being modified");
+            testStringClone = lomStringClone.ToString();
             Console.WriteLine(testStringClone);
         }
 
