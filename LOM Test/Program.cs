@@ -95,6 +95,12 @@ namespace Lomvm_Test
             Console.WriteLine();
             string testString2 = lomString.ToString();
             Console.WriteLine(testString2);
+
+            var lomStringClone = lomString.Clone();
+            Console.WriteLine();
+            Console.WriteLine();
+            string testStringClone = lomStringClone.ToString();
+            Console.WriteLine(testStringClone);
         }
 
 

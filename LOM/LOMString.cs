@@ -6,22 +6,32 @@ namespace LOM
 {
     public class LOMString
     {
-        private readonly Guid _objectID;
+        private readonly Guid _stringID;
         private readonly string _separator;
 
-        internal LOMString() {
-            this._objectID = Guid.NewGuid();
-        }
-
-        public LOMString(string value,string separator = " ")
+        internal LOMString(Guid stringID,string separator)
         {
-            this._objectID = Guid.NewGuid();
             this._separator = separator;
-            StringManager.AddNewString( this._objectID, value,separator);
+            this._stringID = stringID;
         }
 
-        public override string ToString() {
-            return StringManager.ToString(this._objectID,  this._separator);
+        public LOMString(string value, string separator = " ")
+        {
+            this._stringID = Guid.NewGuid();
+            this._separator = separator;
+            StringManager.AddNewString(this._stringID, value, separator);
+        }
+
+        public override string ToString()
+        {
+            return StringManager.ToString(this._stringID, this._separator);
+        }
+
+        public LOMString Clone()
+        {
+            var stringID = StringManager.Clone(_stringID, _separator);
+
+            return new LOMString(stringID,_separator);
         }
     }
 }

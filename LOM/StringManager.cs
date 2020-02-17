@@ -52,5 +52,20 @@ namespace LOM
 
             return stringToReturn.ToString().TrimEnd();
         }
+
+        internal static Guid Clone(Guid stringID, string separator)
+        {
+            Guid newStringID = Guid.NewGuid();
+            List<uint> newString = new List<uint>();
+
+            foreach (var item in strings[stringID])
+            {
+                newString.Add(item);
+            }
+
+            strings[newStringID] = newString;
+         
+            return newStringID;
+        }
     }
 }
