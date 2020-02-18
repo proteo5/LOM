@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace LOM
 {
-    public class LOMString 
+    public class LOMString : IList<string>, ICollection<string>, IEnumerator<string>, IEnumerable<string>
     {
         private readonly Guid _stringID;
         private readonly string _separator;
@@ -101,6 +102,44 @@ namespace LOM
                 if (i >= array.Length || i >= arrayValues.Length) break;
                 array[i] = arrayValues[i];
             }
+        }
+
+        //Implements IEnumerator
+        public IEnumerator<string> GetEnumerator()
+        {
+            return (IEnumerator<string>)this;
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return (IEnumerator<string>)this;
+        }
+
+        private int position = -1;
+
+        public string Current
+        {
+            get { return this[position]; }
+        }
+        object IEnumerator.Current
+        {
+            get { return this[position]; }
+        }
+
+        public bool MoveNext()
+        {
+            position++;
+            bool seguir = position < this.Length;
+            if (!seguir) this.Reset();
+            return (seguir);
+        }
+        public void Reset()
+        {
+            position = -1;
+        }
+
+        public void Dispose()
+        {
+            StringManager.Dispose(this._stringID);
         }
     }
 }

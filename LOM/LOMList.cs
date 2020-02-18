@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LOM
 {
-    public class LOMList<T> : IList<T>, IEnumerator<T>, IEnumerable<T>
+    public class LOMList<T> : IList<T>, ICollection<T>, IEnumerator<T>, IEnumerable<T>
     {
         private readonly Guid _objectID;
         public LOMList()

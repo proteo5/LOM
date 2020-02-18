@@ -172,5 +172,10 @@ namespace LOM
             }
             return array;
         }
+
+        internal static void Dispose(Guid stringID)
+        {
+            
+        }
     }
 }
