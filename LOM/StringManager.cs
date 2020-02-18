@@ -177,5 +177,34 @@ namespace LOM
         {
             
         }
+
+        internal static void Destroy(Guid stringID)
+        {
+            lock (vault)
+            {
+                lock (strings)
+                {
+                    List<uint> ToBeRemoved = new List<uint>();
+                    strings.Remove(stringID);
+                    foreach (var item in vault)
+                    {
+                        bool itemFounded = false;
+                        foreach (var list in strings)
+                        {
+                            if (list.Value.Contains(item.Key))
+                            {
+                                itemFounded = true;
+                                break;
+                            }
+                        }
+                        if (!itemFounded) ToBeRemoved.Add(item.Key);
+                    }
+                    foreach (var item in ToBeRemoved)
+                    {
+                        vault.Remove(item);
+                    }
+                }
+            }
+        }
     }
 }

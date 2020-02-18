@@ -16,6 +16,11 @@ namespace LOM
             this._stringID = stringID;
         }
 
+        ~LOMString()
+        {
+            StringManager.Destroy(this._stringID);
+        }
+
         public LOMString(string value, string separator = "")
         {
             this._stringID = Guid.NewGuid();
@@ -140,6 +145,11 @@ namespace LOM
         public void Dispose()
         {
             StringManager.Dispose(this._stringID);
+        }
+
+        public void Destroy()
+        {
+            StringManager.Destroy(this._stringID);
         }
     }
 }
