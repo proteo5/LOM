@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LOM
 {
-    public class LOMString
+    public class LOMString 
     {
         private readonly Guid _stringID;
         private readonly string _separator;
@@ -63,6 +63,44 @@ namespace LOM
         public int IndexOf(string value)
         {
             return StringManager.IndexOf(this._stringID, value);
+        }
+
+        public bool Contains(string value)
+        {
+            return StringManager.Contains(this._stringID, value);
+        }
+
+        public int Count => StringManager.Count(this._stringID);
+        public int Length => this.Count;
+
+        public bool IsReadOnly { get => false; }
+
+        public void Clear()
+        {
+            StringManager.Clear(this._stringID);
+        }
+
+        public void CopyTo(string[] array, int arrayIndex)
+        {
+            var arrayValues = StringManager.CopyTo(this._stringID);
+            var index = -1;
+            for (int i = arrayIndex; i < array.Length; i++)
+            {
+                index++;
+                if (i >= array.Length || index >= arrayValues.Length) break;
+                array[i] = arrayValues[index];
+            }
+        }
+
+        public void CopyTo(string[] array)
+        {
+
+            var arrayValues = StringManager.CopyTo(this._stringID);
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i >= array.Length || i >= arrayValues.Length) break;
+                array[i] = arrayValues[i];
+            }
         }
     }
 }

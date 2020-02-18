@@ -77,6 +77,7 @@ namespace LOM
 
             return vault.Any(x => x.Value.Equals(value));
         }
+
         internal static int IndexOf(Guid listID, object value)
         {
             var internallist = lists[listID];

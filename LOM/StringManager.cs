@@ -142,5 +142,35 @@ namespace LOM
             var key = vault.FirstOrDefault(x => x.Value == value && internalstring.Contains(x.Key)).Key;
             return internalstring.IndexOf(key);
         }
+
+        internal static bool Contains(Guid stringID, string value)
+        {
+            var internalstring = strings[stringID];
+
+            return vault.Any(x => x.Value.Contains(value) && internalstring.Contains(x.Key));
+        }
+
+        internal static int Count(Guid stringID) => strings[stringID].Count;
+
+        internal static void Clear(Guid stringID)
+        {
+            var internalstring = strings[stringID];
+            internalstring.Clear();
+        }
+
+        internal static string[] CopyTo(Guid stringID)
+        {
+            var internalstring = strings[stringID];
+            int howMany = internalstring.Count;
+            string[] array = new string[howMany];
+            uint[] childArray = new uint[howMany];
+            internalstring.CopyTo(childArray);
+
+            for (int i = 0; i < childArray.Length; i++)
+            {
+                array[i] = vault[childArray[i]];
+            }
+            return array;
+        }
     }
 }
