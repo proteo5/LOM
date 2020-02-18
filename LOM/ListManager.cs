@@ -83,6 +83,7 @@ namespace LOM
             var key = vault.FirstOrDefault(x => x.Value.Equals(value)).Key;
             return internallist.IndexOf(key);
         }
+
         internal static void Clear(Guid listID)
         {
             var internallist = lists[listID];

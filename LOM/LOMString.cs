@@ -59,5 +59,10 @@ namespace LOM
         {
             StringManager.RemoveAt(this._stringID, index);
         }
+
+        public int IndexOf(string value)
+        {
+            return StringManager.IndexOf(this._stringID, value);
+        }
     }
 }

@@ -135,5 +135,12 @@ namespace LOM
             var internalstring = strings[stringID];
             internalstring.RemoveAt(index);
         }
+
+        internal static int IndexOf(Guid stringID, string value)
+        {
+            var internalstring = strings[stringID];
+            var key = vault.FirstOrDefault(x => x.Value == value && internalstring.Contains(x.Key)).Key;
+            return internalstring.IndexOf(key);
+        }
     }
 }

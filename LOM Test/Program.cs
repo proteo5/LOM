@@ -104,7 +104,7 @@ namespace Lomvm_Test
             Console.WriteLine("String from Clone");
             string testStringClone = lomStringClone.ToString();
             Console.WriteLine(testStringClone);
-           
+
             //modify clone LOMString
             string paragraph = lomStringClone[1];
             lomStringClone[1] = paragraph.Replace("nec", "necModified");
@@ -113,14 +113,14 @@ namespace Lomvm_Test
             Console.WriteLine("Original LOMString after modified clone");
             testString2 = lomString.ToString();
             Console.WriteLine(testString2);
-            
+
             Console.WriteLine();
             Console.WriteLine("Cloned LOMString Modified after being modified");
             testStringClone = lomStringClone.ToString();
             Console.WriteLine(testStringClone);
 
             Console.WriteLine();
-            Console.WriteLine("Test add, insert, remove and removeat");
+            Console.WriteLine("Test add, insert, remove and removeat, indexOf");
             lomStringClone.Insert(1, "This is a inserted string");
             testStringClone = lomStringClone.ToString();
             Console.WriteLine(testStringClone);
@@ -137,6 +137,7 @@ namespace Lomvm_Test
             lomStringClone.Add(holdstring);
             testStringClone = lomStringClone.ToString();
             Console.WriteLine(testStringClone);
+            Console.WriteLine("The index {0} is for {1}", lomStringClone.IndexOf(holdstring), holdstring);
         }
 
 
