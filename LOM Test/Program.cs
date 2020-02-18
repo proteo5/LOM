@@ -118,6 +118,25 @@ namespace Lomvm_Test
             Console.WriteLine("Cloned LOMString Modified after being modified");
             testStringClone = lomStringClone.ToString();
             Console.WriteLine(testStringClone);
+
+            Console.WriteLine();
+            Console.WriteLine("Test add, insert, remove and removeat");
+            lomStringClone.Insert(1, "This is a inserted string");
+            testStringClone = lomStringClone.ToString();
+            Console.WriteLine(testStringClone);
+            Console.WriteLine();
+            lomStringClone.RemoveAt(1);
+            testStringClone = lomStringClone.ToString();
+            Console.WriteLine(testStringClone);
+            Console.WriteLine();
+            var holdstring = lomStringClone[0];
+            lomStringClone.Remove(lomStringClone[0]);
+            testStringClone = lomStringClone.ToString();
+            Console.WriteLine(testStringClone);
+            Console.WriteLine();
+            lomStringClone.Add(holdstring);
+            testStringClone = lomStringClone.ToString();
+            Console.WriteLine(testStringClone);
         }
 
 

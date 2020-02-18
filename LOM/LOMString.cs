@@ -39,5 +39,25 @@ namespace LOM
 
             return new LOMString(newStringID, _separator);
         }
+
+        public void Add(string value)
+        {
+            StringManager.Add(this._stringID, value);
+        }
+
+        public void Insert(int index, string value)
+        {
+            StringManager.Insert(this._stringID, index, value);
+        }
+
+        public bool Remove(string value)
+        {
+            return StringManager.Remove(this._stringID, value);
+        }
+
+        public void RemoveAt(int index)
+        {
+            StringManager.RemoveAt(this._stringID, index);
+        }
     }
 }

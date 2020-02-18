@@ -24,7 +24,7 @@ namespace LOM
             string[] words;
             if (string.IsNullOrEmpty(separator))
             {
-                words = newString.Split(new string[] { "\r\n","\r", "\n", Environment.NewLine }, StringSplitOptions.None);
+                words = newString.Split(new string[] { "\r\n", "\r", "\n", Environment.NewLine }, StringSplitOptions.None);
             }
             else
             {
@@ -95,6 +95,45 @@ namespace LOM
             strings[newStringID] = newString;
 
             return newStringID;
+        }
+
+        internal static void Add(Guid stringID, string value)
+        {
+            //Save the value at the valult;
+            var newVaultIndex = vaultIndex;
+            vaultIndex++;
+            vault.Add(newVaultIndex, value);
+
+            //Save the objects index
+            //Check if list exist
+            if (!strings.TryGetValue(stringID, out List<uint> stringList)) stringList = new List<uint>();
+            //add index to the list
+            stringList.Add(newVaultIndex);
+            strings[stringID] = stringList;
+        }
+
+        internal static void Insert(Guid stringID, int index, string value)
+        {
+            var internalstring = strings[stringID];
+            var newVaultIndex = vaultIndex;
+            vaultIndex++;
+            internalstring.Insert(index, newVaultIndex);
+            vault[newVaultIndex] = value;
+        }
+
+        internal static bool Remove(Guid stringID, object value)
+        {
+            var internalstring = strings[stringID];
+
+            var key = vault.FirstOrDefault(x => x.Value.Equals(value)).Key;
+            var result = internalstring.Remove(key);
+            return result;
+        }
+
+        internal static void RemoveAt(Guid stringID, int index)
+        {
+            var internalstring = strings[stringID];
+            internalstring.RemoveAt(index);
         }
     }
 }
